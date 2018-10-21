@@ -94,7 +94,7 @@ X_opt = X[:, [0,3,5]]
 regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
 regressor_OLS.summary()
 
-
+# Automating the Backward Elimination Process
 # Import the library
 import statsmodels.formula.api as sm
 # Create Function, pass parameters x and sl
