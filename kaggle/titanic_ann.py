@@ -1,4 +1,4 @@
-# Logistic Regression Titanic Problem
+# Artificial NN Titanic Problem
 
 # Importing the libraries
 import numpy as np
@@ -54,25 +54,26 @@ sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
 
-'''from sklearn.linear_model import LogisticRegression
-classifier = LogisticRegression()
-classifier.fit(X_train, y_train)'''
+classifier = Sequential()
+classifier.add(Dense(output_dim = 6, init='uniform', activation='relu', input_dim = 11))
 
-'''from sklearn.svm import SVC
-classifier = SVC(kernel="rbf")
-classifier.fit(X_train, y_train)'''
+# Add the second hidden layer
+classifier.add(Dense(output_dim = 6, init='uniform', activation='relu'))
 
-from sklearn.ensemble import RandomForestClassifier
-classifier = RandomForestClassifier(n_estimators = 10, criterion = 'entropy')
-classifier.fit(X_train, y_train)
+# Add the output layer
+classifier.add(Dense(output_dim = 1, init='uniform', activation='sigmoid'))
+
+classifier.compile(optimizer='adam', loss='binary_crossentropy', metrics = ['accuracy'])
+
+# Add epochs
+classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 100)
 
 y_pred = classifier.predict(X_test)
+y_pred = (y_pred > 0.5)
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, y_pred)
 
-identify = test_dataset.iloc[:, 0].values
-
-
-d = {'PassengerId': identify, 'Survived': y_pred}
-
-submission = pd.DataFrame(data=d)
-submission.to_csv('attempt5.csv', encoding='utf-8', index=False)
