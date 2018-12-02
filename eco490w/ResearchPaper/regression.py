@@ -2,7 +2,33 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-dataset = pd.read_excel('./Excel/LINKED_Public.xlsx')
+dataset = pd.read_csv('Data_V2-7.csv')
+datasetv8 = dataset.drop(['OZIP', 'TOTTR', 'LTMODE_AGG', 'DTPURP', 'DTPURP2', 'ORIG_HOME', 'DEST_HOME' ], axis=1)
+
+datasetv8.to_csv('Data_V2-8.csv', sep=',')
+
+datasetv8_1 = pd.read_csv('DATA_V2-8.csv')
+
+datasetv8_1 = datasetv8_1.drop(['Unnamed: 0.1', 'Unnamed: 0.1.1'], axis=1)
+datasetv8_1_anon = datasetv8_1.drop(['PLSAM', 'SAMPN', 'PERNO', 'PLANO'], axis=1)
+dataset_anon = datasetv8_1_anon
+
+
+dataset_anon.to_csv('Data_V3-0.csv', sep=',')
+
+ordered = pd.read_csv('Data_V3-2.csv')
+
+pipe_test = dataset_anon[dataset_anon.PMODE != 2]
+
+pipe_test = pipe_test[pipe_test.PMODE != 26]
+pipe_test.groupby('').size()
+
+pipe_test.to_csv('Data_V3-1.csv', sep=',')
+
+
+rearrange_test = pipe_test[['PMODE', 'TOTTR_R', 'INCOM_R', 'HHVEH_R', 'DNYC', 'HHSIZE', 'TRPDUR', 'TRPDIST_HN']]
+rearrange_test.to_csv('Data_V3-2.csv', sep=',')
+
 
 dataset = dataset.drop(['TLFC1'], axis=1)
 
@@ -40,7 +66,7 @@ new_set = new_set.drop(['TRIPDIST_R1', 'TRIPDIST_R2', 'TRPDUR_R', 'TOD_R1', 'TOD
 
 
 
-
+pipe_test.groupby('PMODE').size()
 
 # AfterI drop all of the unwanted data
 
