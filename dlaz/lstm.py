@@ -69,6 +69,40 @@ regressor.add(Dense(units = 1))
 # Compiling the RNN
 regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
 
+# Fit RNN to the training set
+
+regressor.fit(X_train, y_train, epochs = 100, batch_size = 32)
 
 # 3. Making the prediction and visualizing the results
+dataset_test = pd.read_csv('Google_Stock_Price_Test.csv')
+real_stock_price = dataset_test.iloc[:, 1:2].values
+
+# Getting the predicting stock price
+
+dataset_total = pd.concat((dataset_train['Open'], dataset_test['Open']), axis = 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
