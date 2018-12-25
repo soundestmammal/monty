@@ -2,10 +2,13 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-dataset = pd.read_csv('Data_V2-7.csv')
+
+dataset = pd.read_csv('Data_V5.csv')
+dataset = dataset.drop(['Unnamed: 0'], axis=1)
+dataset = dataset[['PMODE', 'HHSIZE', 'DNYC', 'TOTTR_R', 'INCOM_R', 'HHVEH_R', 'GENDER', 'AGE_R', 'LIC' ,'TRPDUR', 'TRPDIST_HN']]
 datasetv8 = dataset.drop(['OZIP', 'TOTTR', 'LTMODE_AGG', 'DTPURP', 'DTPURP2', 'ORIG_HOME', 'DEST_HOME' ], axis=1)
 
-datasetv8.to_csv('Data_V2-8.csv', sep=',')
+dataset.to_csv('Data_V51.csv', sep=',')
 
 datasetv8_1 = pd.read_csv('DATA_V2-8.csv')
 
@@ -76,4 +79,51 @@ pipe_test.groupby('PMODE').size()
 
 # 3. I want to see if the sample size ia big enough
 
+
+person = pd.read_excel('PER_Public.xlsx')
+person = person.filter(items=['PSAMP', 'SAMPN', 'PERNO', 'GENDER', 'AGE_R', 'LIC'])
+
+# Dataset with people information
+dataset = pd.read_csv('DATA_V2-8.csv')
+
+sampn = dataset.iloc[:, 5].values
+
+ndataset = dataset.assign(identifier = dataset['SAMPN'] + dataset['PERNO'])  
+
+
+upPerson = person.assign(identifier = person['SAMPN'] + person['PERNO'])
+droppedPerson = upPerson.drop_duplicates(subset=['identifier'])
+
+dup = tryPerson.duplicated('identifier')
+tryPerson[-1] = dup
+tryPerson[-1].unique()
+
+dup.value_counts()
+    
+identifier = []
+
+for row in person:
+    sampn = person['SAMPN']
+
+readyMerge = droppedPerson.drop(['PSAMP', 'SAMPN', 'PERNO'], axis=1)
+
+
+# merge ndataset and droppedPerson
+
+hope = pd.merge(ndataset,readyMerge)
+
+hopeDrop = hope.drop(['Unnamed: 0.1', 'Unnamed: 0.1.1', 'Unnamed: 0'], axis=1)
+hope_anon = hopeDrop.drop(['PLSAM', 'SAMPN', 'PERNO', 'PLANO', 'identifier'], axis=1)
+dataset_anon = datasetv8_1_anon
+
+dataseter = pd.read_csv('Data_V3-3.csv')
+dataseter = dataseter.drop(['Unnamed: 0'], axis=1)
+
+dataseter.to_csv('Data_V4.csv', sep=',')
+hope_anon.to_csv('Data_V5.csv', sep=',')
+
+dataseter[0] = dataseter['PMODE']
+hope_anon[0] = hope_anon['PMODE']
+
+hope_anon = hope_anon.drop([], axis=1)
 

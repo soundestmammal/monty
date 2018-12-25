@@ -77,9 +77,6 @@ classifier = Sequential()
 # Adding the input layer and the first hidden layer
 classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu', input_dim = 7))
 
-# Adding the second hidden layer
-classifier.add(Dense(output_dim = 6, init = 'uniform', activation = 'relu'))
-
 # Adding the output layer
 classifier.add(Dense(output_dim = 5, init = 'uniform', activation = 'softmax'))
 
@@ -87,7 +84,7 @@ classifier.add(Dense(output_dim = 5, init = 'uniform', activation = 'softmax'))
 classifier.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = ['accuracy'])
 
 # Fitting the ANN to the Training set
-classifier.fit(X_train, y_train, batch_size = 10, nb_epoch = 100)
+classifier.fit(X_train, y_train, batch_size = 50, nb_epoch = 100)
 
 # Part 3 - Making the predictions and evaluating the model
 
